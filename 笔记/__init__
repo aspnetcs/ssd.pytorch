@@ -1,0 +1,1 @@
+docker run -d --privileged --user 0 --hostname master -p 5901:5901 -p 6901:6901 centos-hadoop-hive-hbase-spark-pycharm /usr/sbin/init
