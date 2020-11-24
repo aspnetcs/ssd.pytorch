@@ -1,0 +1,1 @@
+docker run -it --shm-size=6442450944  -m='16g'  ubuntu-vnc-terminator-pycharm-idea-symbolpdfscraper-tfd-pytorchssd
