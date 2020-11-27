@@ -1,0 +1,60 @@
+https://blog.csdn.net/sinat_41144773/article/details/95478090
+2、 rm -f /tmp/.X1-lock
+
+3、 rm -f /tmp/.X11-unix/X1
+
+VNC报错Can't find file /root/.vnc/host-x.pid You'll have to kill the Xvnc process manually
+
+摸金青年v 2019-07-11 14:57:55  1111  收藏
+文章标签： vnc报错 vnc kill
+1、在vnc服务启动后，无论是：
+
+开机自启 
+# systemctl enable vncserver@:1.service
+启动服务 
+# systemctl start vncserver@:1.service 
+
+ 
+
+2、然后vncserver一次就会开启一个远程窗口，一次就会占用端口5901-5905
+
+查看服务的端口占用：会出现很多（这里只有一个）
+
+[root@host-10-18-0-13 tmp]# netstat -tnlp | grep vnc
+tcp        0      0 0.0.0.0:5901            0.0.0.0:*               LISTEN      11368/Xvnc          
+tcp        0      0 0.0.0.0:6001            0.0.0.0:*               LISTEN      11368/Xvnc          
+tcp6       0      0 :::5901                 :::*                    LISTEN      11368/Xvnc          
+tcp6       0      0 :::6001                 :::*                    LISTEN      11368/Xvnc    
+
+# ps -ef | grep -i vnc | grep -v grep
+
+查看占用进程
+
+ 
+
+3、vncserver -kill :1
+
+报错  Can't find file /root/.vnc/host-10-18-0-13:1.pid   You'll have to kill the Xvnc process manually
+
+手动kill进程
+
+转载这篇博客：https://blog.csdn.net/u010647035/article/details/79686642
+
+1、 kill -9 进程号
+
+2、 rm -f /tmp/.X1-lock
+
+3、 rm -f /tmp/.X11-unix/X1
+
+ 
+
+下次再用vncserver开启后
+
+再vncserver -kill :1可能就不用手动杀进程了
+
+[root@host-10-18-0-13 tmp]# vncserver -kill :1
+Killing Xvnc process ID 11368
+
+ 
+
+结束。
